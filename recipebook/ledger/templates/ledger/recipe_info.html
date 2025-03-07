@@ -1,16 +1,17 @@
 <html lang="en-US">
-<head>
-    <title>Recipe Book</title>
-    <h1>Recipe Book</h1>
-</head>
-<body>
-    {{name}}
-    <ul>
-        {% for ingredient in ingredients %}
-            <li>{{ ingredient.name }} : {{ ingredient.quantity }}</li>
-        {% endfor %}
-
-        <a href={{link}}>{{name}}</a>
-    </ul>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en-US">
+    <head>
+        <title>Recipe Book</title>
+        <h1>Recipe Book</h1>
+    </head>
+    <body>
+        {{ Recipe_Ingredients.first.recipe.name }}
+        <ul>
+            {% for recipeingredient in Recipe_Ingredients %}
+                <li>{{ recipeingredient.ingredients.name }} : {{ recipeingredient.quantity }}</li>
+            {% endfor %}
+            <a href="">{{Recipe_Ingredients.first.recipe.name}}</a>
+        </ul>
+    </body>
+    </html>
