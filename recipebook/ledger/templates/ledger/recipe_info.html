@@ -3,15 +3,29 @@
     <html lang="en-US">
     <head>
         <title>Recipe Book</title>
-        <h1>Recipe Book</h1>
+        <header>
+            {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Logout</button>
+                    </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+            <h1>Recipe Book</h1>
+            <h1>{{ Recipe_Ingredients.first.recipe.name}} Page</h1>
+        </header>
     </head>
     <body>
-        {{ Recipe_Ingredients.first.recipe.name }}
+        <ul>Authored by {{ Recipe_Ingredients.first.recipe.author.name}}</ul>
+        <ul>Created on {{ Recipe_Ingredients.first.recipe.created_on}}</ul>
+        <ul>Updated on {{ Recipe_Ingredients.first.recipe.updated_on}}</ul>
         <ul>
             {% for recipeingredient in Recipe_Ingredients %}
                 <li>{{ recipeingredient.ingredients.name }} : {{ recipeingredient.quantity }}</li>
             {% endfor %}
-            <a href="">{{Recipe_Ingredients.first.recipe.name}}</a>
+            <a href="/recipes/list">return to recipes list</a>
         </ul>
     </body>
-    </html>
+</html>
