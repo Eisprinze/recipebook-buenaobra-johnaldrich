@@ -1,12 +1,24 @@
 <html lang="en-US">
 <head>
     <title>Recipe Book</title>
-    <h1>Recipe Book</h1>
+    <header>      
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Logout</button>
+                </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+        <h1>Recipe Book</h1>
+    </header>
 </head>
+
 <body>
     <ul>
         {% for recipe in Recipes_List %}
-            <li><a href="/recipe/{{recipe.id}}">{{recipe.name}}</a></li>
+            <li><a href="/recipe/{{recipe.name}}">{{recipe.name}}</a></li>
         {% endfor %}
     </ul>
 </body>
