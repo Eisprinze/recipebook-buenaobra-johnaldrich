@@ -3,6 +3,9 @@
     <html lang="en-US">
     <head>
         <title>Recipe Book</title>
+    </head>
+
+    <body>
         <header>
             {% if user.is_authenticated %}
                 <form method="POST" action="{% url 'logout' %}">
@@ -15,9 +18,13 @@
             {% endif %}
             <h1>Recipe Book</h1>
             <h1>{{ Recipe_Ingredients.first.recipe.name}} Page</h1>
+            {% block main %}
+                {% for recipe_image in Recipe_Images %}
+                    <img src="{{ recipe_image.image.url }}" alt="{{recipe_image.description}}">
+                {% endfor %}
+            {% endblock %}
         </header>
-    </head>
-    <body>
+
         <ul>Authored by {{ Recipe_Ingredients.first.recipe.author.name}}</ul>
         <ul>Created on {{ Recipe_Ingredients.first.recipe.created_on}}</ul>
         <ul>Updated on {{ Recipe_Ingredients.first.recipe.updated_on}}</ul>
@@ -25,6 +32,8 @@
             {% for recipeingredient in Recipe_Ingredients %}
                 <li>{{ recipeingredient.ingredients.name }} : {{ recipeingredient.quantity }}</li>
             {% endfor %}
+            
+            <a href="add_image/">add recipe image</a>
             <a href="/recipes/list">return to recipes list</a>
         </ul>
     </body>

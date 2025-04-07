@@ -33,7 +33,7 @@ class Recipe(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('recipe_detail', args=[str(self.id)])
+        return reverse('recipe_detail', args=[str(self.pk)])
 
 
 class RecipeIngredient(models.Model):
@@ -43,3 +43,12 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return '{}:{},{}'.format(self.ingredients, self.quantity, self.recipe)
+    
+
+class RecipeImage(models.Model):
+    image = models.ImageField(upload_to='images/', null=False)
+    description = models.CharField(max_length=255)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.recipe.name
