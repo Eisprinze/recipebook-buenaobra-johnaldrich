@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import RecipeForm,RecipeIngredientForm,RecipeImageForm,IngredientsForm
+from .forms import *
 
 
 @login_required
@@ -19,7 +19,7 @@ def recipe_detail(request, pk):
     recipe = Recipe.objects.get(pk=pk)
     recipeIngredients = RecipeIngredient.objects.filter(recipe=recipe)
     recipeImage = RecipeImage.objects.filter(recipe=recipe)
-    return render(request, 'ledger/recipe_info.html', {'Recipe_Ingredients': recipeIngredients,'Recipe_Images': recipeImage})
+    return render(request, 'ledger/recipe_info.html', {'Recipe_Ingredients': recipeIngredients, 'Recipe_Images': recipeImage})
 
 
 @login_required
@@ -35,7 +35,7 @@ def recipe_add(request):
             recipe.save()
             new_ingredient = ingredient_form.save(commit=False)
             new_ingredient.recipe = recipe
-            new_ingredient.save()  
+            new_ingredient.save()
             return redirect('ledger:recipe_detail', pk=recipe.pk)
 
     return render(request, 'ledger/recipe_add.html', {'form': form, 'ingredient_form': ingredient_form})
@@ -54,8 +54,9 @@ def recipe_add_ingredients(request):
 
     return render(request, 'ledger/recipe_add_ingredients.html', {'form': form})
 
+
 @login_required
-def recipe_image_upload(request,pk):
+def recipe_image_upload(request, pk):
     recipe = Recipe.objects.get(pk=pk)
     form = RecipeImageForm()
 
@@ -67,5 +68,5 @@ def recipe_image_upload(request,pk):
             recipe_image.recipe = recipe
             recipe_image.save()
             return redirect('ledger:recipe_detail', pk=recipe.pk)
-        
+
     return render(request, 'ledger/recipe_image_upload.html', {'form': form, 'recipe': recipe})

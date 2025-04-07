@@ -7,17 +7,20 @@ class RecipeForm(forms.ModelForm):
         model = Recipe
         fields = '__all__'
 
+
 class RecipeIngredientForm(forms.ModelForm):
     class Meta:
         model = RecipeIngredient
         fields = ['ingredients', 'quantity']
+
 
 class RecipeImageForm(forms.ModelForm):
     class Meta:
         model = RecipeImage
         fields = ['image', 'description']
 
+
 class IngredientsForm(forms.ModelForm):
     class Meta:
         model = Ingredients
-        fields =  ['name']
+        fields = ['name']

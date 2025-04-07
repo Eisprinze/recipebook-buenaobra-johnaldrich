@@ -43,7 +43,7 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return '{}:{},{}'.format(self.ingredients, self.quantity, self.recipe)
-    
+
 
 class RecipeImage(models.Model):
     image = models.ImageField(upload_to='images/', null=False)
