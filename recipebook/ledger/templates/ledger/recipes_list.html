@@ -18,8 +18,9 @@
 <body>
     <ul>
         {% for recipe in Recipes_List %}
-            <li><a href="/recipe/{{recipe.name}}">{{recipe.name}}</a></li>
+            <li><a href="/recipe/{{recipe.pk}}">{{recipe.name}}</a></li>
         {% endfor %}
+        <li><a href="/recipe/add">Add new recipe</a></li>
     </ul>
 </body>
 </html>
